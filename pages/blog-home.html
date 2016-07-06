@@ -1,0 +1,84 @@
+<div class="train-box-head blog-head" ng-hide="hidePostBox">
+	<div class="blog-left">
+		<div class="post-list-outer">
+			<ul class="post-list">
+				<li class="item" ng-repeat="list in blogList.posts">
+					<div class="post-list-item">
+						<h2>
+							<a title="{{list.post_title}}" href="{{list.guid}}">{{list.post_title}}</a>
+						</h2>
+
+						<dl class="post-info-list">
+							<dd>{{list.post_modified}}</dd>
+							<dd>{{list.comment_count}}</dd>
+						</dl>
+						<div class="post-entry entry post-entry-with-image">
+							<div class="featured-image">
+								<a title="{{list.post_title}}" href="{{list.guid}}">
+									<img alt="{{list.post_pic_url}}" src="{{list.post_pic_url}}">
+								</a>
+							</div>
+			   
+							<div class="post-desc-text">
+								<p>{{list.post_excerpt}}</p>
+							</div>
+							<div class="excerpt-read-more">
+								<a title="Read More" href="{{list.guid}}" class="blue-btn-small">Read More</a>
+							</div>
+						</div>
+					</div>
+				</li>
+				
+			</ul>
+		</div>
+		
+		<ul class="pagination" ng-if="blogList.pagination.pagination_enabled !== 0">
+			<!--<li ng-repeat="paginationList in blogList.pagination.pagination_count" ng-click="pagination($event)" data='{{paginationList}}'>
+			{{paginationList}}
+			</li>-->
+			<li ng-repeat="paginationList in blogList.pagination.pagination_count">
+			<a href="http://localhost/enquiryrailway.in/#/blog/page/{{paginationList}}">{{paginationList}}</a>
+			</li>
+		</ul>
+	</div>
+	
+	<div class="blog-right">
+		<div class="wp-sidebar">
+			<!--<div class="block block-blog block-blog-search">
+				<div class="block-content">
+					<form id="blog-search-form" action="" method="get">
+						<div class="blog-search">
+							<input type="text" placeholder="Search Post" value="" title="BeitrÃ¤ge duchsuchen" class="input-text" name="s">
+							<button type="submit" title="Suchen" class="button"><span class="fa fa-search"></span></button>
+						</div>
+					</form>
+				</div>
+			</div>-->
+					
+			<div class="block block-blog block-recent-posts">
+				<div class="block-title">
+					<strong><span>Popular Posts</span></strong>
+				</div>
+				<div class="block-content">
+					<ul class="sidebar-post-list">
+						<li class="item" ng-repeat="pop_post_List in popularList.popular_posts">
+							<h3>
+								<a href="{{pop_post_List.guid}}" title="{{pop_post_List.post_title}}">
+									{{pop_post_List.post_title}}
+								</a>
+							</h3>
+							<dl class="sidebar-post-infolist">                                            
+								<dt>{{pop_post_List.post_modified}}</dt>
+							</dl>
+							<div class="sidebar-featured-image">
+								<a title="{{pop_post_List.post_title}}" href="{{pop_post_List.guid}}">
+									<img alt="{{pop_post_List.post_pic_url}}" src="{{pop_post_List.post_pic_url}}"/>
+								</a>
+							</div>	
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>

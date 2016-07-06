@@ -1,0 +1,59 @@
+<div class="train-box-head live-trains-head">
+	<h2>Live Train </h2>
+	<p>Simply check live status of your train. </p>
+
+	<div class="input-box trainlive-input-box ">
+		<form name="trainLiveForm">
+			<div class="center-input-box">
+				<div class="input-box-ind">
+				<input type="text" placeholder="Enter Train Code" ng-model="trainCode" name="liveTrainNo" required ng-maxlength="5" ng-minlength="5" />
+				</div>
+				<div class="input-box-ind">
+				<md-datepicker ng-model="myDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+				</div>
+				<div class="input-box-ind">
+					<input type="submit" value="Go Live" ng-click="getLiveTrain()" ng-disabled="trainLiveForm.liveTrainNo.$invalid" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="result-box trainlive-result-box" ng-hide="hideResultBox">
+	<table class="table-list trainlive-list">
+		<tr>
+			<th>#</th>
+			<th>Station</th>
+			<th>Schedule Arr</th>
+			<th>Schedule Arr Date</th>
+			<th>Schedule Dep</th>
+			<th>Distance</th>
+			<th>Actual Arr</th>
+			<th>Actual Arr Date</th>
+			<th>Actual Dep</th>
+			<th>Has Arrived</th>
+			<th>Has Departed</th>
+			<th>Delay Staus</th>
+		</tr>
+		<tr ng-repeat="train in trainStatus.route">
+			<td>{{$index}}</td>
+			<td>{{train.station}}</td>
+			<td>{{train.scharr}}</td>
+			<td>{{train.scharr_date}}</td>
+			<td>{{train.schdep}}</td>
+			<td>{{train.distance}}</td>
+			<td>{{train.actarr}}</td>
+			<td>{{train.actarr_date}}</td>
+			<td>{{train.actdep}}</td>
+			<td>{{train.has_arrived}}</td>
+			<td>{{train.has_departed}}</td>
+			<td>{{train.status}}</td>
+		</tr>	
+	</table>
+</div>
+
+<div class="error-msg-box" ng-hide="hideErrorBox">
+	<h3>Oops, Something went wrong...</h3>
+</div>
+
+<div class="layout-overlay call-loader" ng-hide="hideLoader"><div class="overlay"></div><span class="loader"><img src="common/images/loader.gif" alt="loader"></span></div>

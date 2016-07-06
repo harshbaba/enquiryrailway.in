@@ -1,0 +1,65 @@
+<div class="train-box-head pnr-box-head">
+	<h2>PNR STATUS</h2>
+	<p>Simply check your PNR status here</p>
+	<div class="input-box pnr-input-box ">
+		<form method="post" name="pnrform" no-validate>
+			<div class="center-input-box">
+			<div class="input-box-ind">
+			<input type="text" ng-model="pnrNo" placeholder="Enter 10 Digit PNR Number" ng-pattern="/[1-9]{1}[0-9]{9}/" ng-maxlength="10" ng-minlength="10" name="pnrNo" required/>
+			<span class="input-error-msg" ng-show="pnrform.pnrNo.$error.pattern">
+				Please enter valid 10 digit pnr number.
+			</span>
+			</div>
+			<div class="input-box-ind">
+			<input type="submit" value="Get PNR Status" ng-click="getPnr()" ng-disabled="pnrform.pnrNo.$invalid"/>
+			</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="result-box pnr-result" ng-hide="hidePnrResult">
+	<h3>PNR Number : {{details.pnr}}</h3>
+	<table class="journey-details-list pnr-details-list table-list">
+		<tr>
+			<th class="col"><h4>Train No:</h4></th>
+			<th class="col"><h4>Train Name</h4></th>
+			<th class="col"><h4>Boarding Date (DD-MM-YYYY)</h4></th>
+			<th class="col"><h4>From</h4></th>
+			<th class="col"><h4>To</h4></th>
+			<th class="col"><h4>Reserved Upto</h4></th>
+			<th class="col"><h4>Boarding Point</h4></th>
+			<th class="col"><h4>Class</h4></th>
+		</tr>
+		<tr>
+			<td class="col"><p>{{details.train_num}}</p></td>
+			<td class="col"><p>{{details.train_name}}</p></td>
+			<td class="col"><p>{{details.doj}}</p></td>
+			<td class="col"><p>{{details.from_station.name}}</p></td>
+			<td class="col"><p>{{details.to_station.name}}</p></td>
+			<td class="col"><p>{{details.reservation_upto.name}}</p></td>
+			<td class="col"><p>{{details.boarding_point.name}}</p></td>
+			<td class="col"><p>{{details.class}}</p></td>
+		</tr>
+	</table>
+
+	<table class="pnr-details-list table-list">
+		<tr>
+			<th class="col"><h4>S. No.</h4></th>
+			<th class="col"><h4>Booking Status (Coach No , Berth No., Quota)</h4></th>
+			<th class="col"><h4>* Current Status 
+(Coach No , Berth No.)</h4></th>
+		</tr>
+		<tr ng-repeat="passenger in details.passengers">
+			<td class="col"><p>{{passenger.no}}</p></td>
+			<td class="col"><p>{{passenger.booking_status}}</p></td>
+			<td class="col"><p>{{passenger.current_status}}</p></td>
+		</tr>
+	</table>
+</div>
+
+<div class="error-msg-box" ng-hide="hideErrorBox">
+	<h3>Oops, no data found on this PNR...</h3>
+</div>
+
+<div class="layout-overlay call-loader" ng-hide="hideLoader"><div class="overlay"></div><span class="loader"><img src="common/images/loader.gif" alt="loader"></span></div>

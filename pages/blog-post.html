@@ -1,0 +1,106 @@
+<div class="train-box-head blog-head" ng-hide="hidePostBox">
+	<div class="blog-left">
+		<div class="post-details-outer">
+			<div class="view-post-title">
+				<h1>{{postDetails.post_title}}</h1>
+				<dl class="post-info-list">
+					<dd>{{postDetails.post_date}}</dd>
+					<dd>{{postDetails.comment_count}}</dd>
+				</dl>
+			</div>
+			<div class="post-view custom-post-view">
+				<div class="post-entry post-entry-with-image">
+					<div class="featured-image">
+						<img src="{{postDetails.post_pic_url}}" alt="{{postDetails.post_pic_url}}">
+					</div>
+					<div class="post-desc-text">
+						<p>{{postDetails.post_content}}</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="join-discussion-form">
+			<h2>Join Discussion</h2>
+			<p>Your email address will not be published. All fields are Required.</p>
+			<form name="formData" ng-submit="joinDiscussion()" id="discussion-form">
+				<div class="field">
+					<input type="text" ng-model="formData.author_name" placeholder="Enter Your Name" />
+				</div>
+				<div class="field">
+					<input type="text" ng-model="formData.author_email" placeholder="Enter your email" />
+				</div>
+				<div class="field">
+					<textarea placeholder="Enter Message" ng-model="formData.author_msg" rows="5"></textarea>
+				</div>
+			  	<div class="field">
+					<button type="submit">Submit</button>
+			  	</div>
+				
+			</form>
+			</div>
+			<div class="comments-box">
+				<div class="comments-box-head">
+					<h2>Comments:</h2>
+				</div>
+				<div class="comments-list-outer">
+					<ul class="comments-list">
+						<li ng-repeat="comment in postComments.comments">
+							<div class="comment-list-inner">
+								<div class="user-pic">
+									<img src="common/images/user-pic.jpg" alt=""/>
+								</div>
+								<div class="user-comment">
+									<h4>{{comment.comment_author}}</h4>
+									<p>{{comment.comment_msg}}</p>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		
+	
+	</div>
+	
+	<div class="blog-right">
+		<div class="wp-sidebar">
+			<!--<div class="block block-blog block-blog-search">
+				<div class="block-content">
+					<form id="blog-search-form" action="" method="get">
+						<div class="blog-search">
+							<input type="text" placeholder="Search Post" value="" title="BeitrÃ¤ge duchsuchen" class="input-text" name="s">
+							<button type="submit" title="Suchen" class="button"><span class="fa fa-search"></span></button>
+						</div>
+					</form>
+				</div>
+			</div>-->
+					
+			<div class="block block-blog block-recent-posts">
+				<div class="block-title">
+					<strong><span>Popular Posts</span></strong>
+				</div>
+				<div class="block-content">
+					<ul class="sidebar-post-list">
+						<li class="item" ng-repeat="pop_post_List in popularList.popular_posts">
+							<h3>
+								<a href="{{pop_post_List.guid}}" title="{{pop_post_List.post_title}}">
+									{{pop_post_List.post_title}}
+								</a>
+							</h3>
+							<dl class="sidebar-post-infolist">                                            
+								<dt>{{pop_post_List.post_modified}}</dt>
+							</dl>
+							<div class="sidebar-featured-image">
+								<a title="{{pop_post_List.post_title}}" href="{{pop_post_List.guid}}">
+									<img alt="{{pop_post_List.post_pic_url}}" src="{{pop_post_List.post_pic_url}}">
+								</a>
+							</div>	
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>

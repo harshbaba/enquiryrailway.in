@@ -1,0 +1,138 @@
+<div class="train-box-head train-availbility-head">
+	<h2>Train Between Stations </h2>
+	<p>Simply check availbility of trains between two stations</p>
+
+	<div class="input-box trainavail-input-box">
+		<form name="trainAvailForm">
+			<div class="center-input-box">
+				<div class="input-box-ind from-station-box">
+					<input type="text" ng-model="fromStation" placeholder="From Station (Code)" name="fromStation" required/>
+				</div>
+				<div class="input-box-ind to-station-box">
+					<input type="text" ng-model="ToStation" placeholder="To Station (Code)" name="ToStation" required/>
+				</div>
+				<div class="input-box-ind date-station-box">
+					<md-datepicker ng-model="myDate" md-placeholder="Enter date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+				</div>
+				<div class="input-box-ind submit-station-box">
+					<input type="submit" value="Find Trains" ng-click="getTrains()" ng-disabled="trainAvailForm.fromStation.$invalid || trainAvailForm.ToStation.$invalid"/> 
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<div class="result-box train-avail-result" ng-hide="hideTrainAvailResult">
+	<h3 style="text-transform:uppercase;">From {{fromStation}}: To {{ToStation}}</h3>
+	<table class="table-list train-avail-list">
+		<tr>
+			<th>Train</th>
+			<th>Train Name</th>
+			<th>From</th>
+			<th>Dep.</th>
+			<th>To</th>
+			<th>Arr.</th>
+			<th>M</th>
+			<th>T</th>
+			<th>W</th>
+			<th>T</th>
+			<th>F</th>
+			<th>S</th>
+			<th>S</th>
+			<th ng-repeat="class in trains.train[0].classes">
+				{{class['class-code']}}
+			</th>
+		</tr>
+		<tr ng-repeat="train in trains.train">
+			<td>
+				<p class="train-number" ng-click="getTrainRoute($event)" trainNo="{{train.number}}">{{train.number}}</p>
+			</td>
+			<td><p>{{train.name}}</p></td>
+			<td><p>{{train.from.name}}</p></td>
+			<td><p>{{train.src_departure_time}}</p></td>
+			<td><p>{{train.to.name}}</p></td>
+			<td><p>{{train.dest_arrival_time}}</p></td>
+			<td><p>{{train.days[0].runs}}</p></td>
+			<td><p>{{train.days[1].runs}}</p></td>
+			<td><p>{{train.days[2].runs}}</p></td>
+			<td><p>{{train.days[3].runs}}</p></td>
+			<td><p>{{train.days[4].runs}}</p></td>
+			<td><p>{{train.days[5].runs}}</p></td>
+			<td><p>{{train.days[6].runs}}</p></td>
+
+			<td ng-repeat="availbles in train.classes">
+				<p ng-if="availbles.available == 'Y'" class="train-classes" ng-click="getSeatAvail($event)" trainNo="{{train.number}}" classCode="{{availbles['class-code']}}" sourceCode="{{train.from.code}}" destCode="{{train.to.code}}">{{availbles.available}}
+				</p>
+				<p ng-if="availbles.available != 'Y'">{{availbles.available}}</p>
+			</td>
+
+			
+		</tr>
+	</table>
+</div>
+
+<div class="error-msg-box" ng-hide="hideErrorBox">
+	<h3>Oops, no train found on this Route...</h3>
+</div>
+
+<div class="layout-overlay call-loader" ng-hide="hideLoader" ng-click="overlayClick()"><div class="overlay"></div><span class="loader"><img src="common/images/loader.gif" alt="loader"></span></div>
+
+<div class="popup-box train-route-box">
+	<table class="table-list train-route-list">
+		<tr>
+			<th>#</th>
+			<th>Code</th>
+			<th>Station Name</th>
+			<th>State</th>
+			<th>Arrival</th>
+			<th>Departue</th>
+			<th>Halt</th>
+			<th>Day</th>
+		</tr>
+		<tr ng-repeat="route in routes.route">
+			<td>{{route.no}}</td>
+			<td>{{route.code}}</td>
+			<td>{{route.fullname}}</td>
+			<td>{{route.state}}</td>
+			<td>{{route.scharr}}</td>
+			<td>{{route.schdep}}</td>
+			<td>{{route.halt}}</td>
+			<td>{{route.day}}</td>
+		</tr>
+	</table>
+</div>
+
+<div class="popup-box seat-availability-box">
+	<table class="table-list seat-status-list" style="margin-bottom:25px;">
+		<tr>
+			<th>Train No./Name</th>
+			<th>From</th>
+			<th>To</th>
+			<th>Quota</th>
+			<th>Fare</th>
+		</tr>
+		<tr>
+			<td>{{seats.train_number}}/{{seats.train_name}}</td>
+			<td>{{seats.from.name}}</td>
+			<td>{{seats.to.name}}</td>
+			<td>{{seats.quota.quota_name}}</td>
+			<td>{{finalFare}}</td>
+		</tr>
+	</table>
+	<table class="table-list seat-status-list">
+		<tr>
+			<th>#</th>
+			<th>Date</th>
+			<th>Status</th>
+			<th>Class</th>
+		</tr>
+		<tr ng-repeat="seat in seats.availability">
+			<td>{{$index}}</td>
+			<td>{{seat.date}}</td>
+			<td>{{seat.status}}</td>
+			<td>{{seats.class.class_name}}</td>
+		</tr>
+	</table>
+	<div class="popup-overlay">
+		<!--<span class="loader2"><img src="../common/images/loader2.gif" alt="" /></span>-->
+	</div>
+</div>

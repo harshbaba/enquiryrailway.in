@@ -1,0 +1,84 @@
+<div class="train-box-head live-station-head">
+	<h2>Live Station </h2>
+	<p>Simply check Arrival and Departure  of trains in next 2 Hours. </p>
+
+	<div class="input-box stationlive-input-box ">
+		<form name="stationLiveForm">
+			<div class="center-input-box">
+				<div class="input-box-ind">
+				<input type="text" placeholder="Enter Station Name" ng-model="stationCode" ng-keyup="showStation(stationCode)" name="stationName" required />
+				<input type="hidden" ng-model="hiddenStationCode"/> 
+				<div class="suggested-results" ng-hide="hideSuggestedResult">
+					<ul>
+						<li ng-repeat="station in stations.station | filter:stationCode" ng-click="setStationCode(station.fullname,station.code)">
+							{{station.fullname}} ({{station.code}})
+						</li>
+					</ul>
+				</div>
+				</div>
+				<div class="input-box-ind">
+				<input type="submit" value="Go Live" ng-click="getLiveStation()" ng-disabled="stationLiveForm.stationName.$invalid" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="result-box stationlive-result-box" ng-hide="hideResultBox">
+	<table class="table-list stationlive-list">
+		<tr>
+			<th>#</th>
+			<th>Train No.</th>
+			<th>Name</th>
+			<th>Schedule Arr</th>
+			<th>Schedule Dep</th>
+			<!--<th>Halt</th>-->
+			<th>Actual Arr</th>
+			<th>Actual Dep</th>
+			<th>Delay Arr</th>
+			<th>Delay Dep</th>
+		</tr>
+		<tr ng-repeat="train in trains.train">
+			<td>{{$index}}</td>
+			<td><p class="train-number" ng-click="getTrainRoute($event)" trainNo="{{train.number}}">{{train.number}}</p></td>
+			<td>{{train.name}}</td>
+			<td>{{train.scharr}}</td>
+			<td>{{train.schdep}}</td>
+			<td>{{train.actarr}}</td>
+			<td>{{train.actdep}}</td>
+			<td>{{train.delayarr}}</td>
+			<td>{{train.delaydep}}</td>
+		</tr>
+	</table>
+</div>
+
+<div class="error-msg-box" ng-hide="hideErrorBox">
+	<h3>Oops, Something went wrong...</h3>
+</div>
+
+<div class="layout-overlay call-loader" ng-hide="hideLoader" ng-click="overlayClick()"><div class="overlay"></div><span class="loader"><img src="common/images/loader.gif" alt="loader"></span></div>
+
+<div class="popup-box train-route-box">
+	<table class="table-list train-route-list">
+		<tr>
+			<th>#</th>
+			<th>Code</th>
+			<th>Station Name</th>
+			<th>State</th>
+			<th>Arrival</th>
+			<th>Departue</th>
+			<th>Halt</th>
+			<th>Day</th>
+		</tr>
+		<tr ng-repeat="route in routes.route">
+			<td>{{route.no}}</td>
+			<td>{{route.code}}</td>
+			<td>{{route.fullname}}</td>
+			<td>{{route.state}}</td>
+			<td>{{route.scharr}}</td>
+			<td>{{route.schdep}}</td>
+			<td>{{route.halt}}</td>
+			<td>{{route.day}}</td>
+		</tr>
+	</table>
+</div>
